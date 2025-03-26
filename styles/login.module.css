@@ -1,0 +1,209 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+      "Helvetica Neue", sans-serif;
+  }
+  
+  .loginCard {
+    width: 100%;
+    max-width: 420px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    transition: transform 0.3s ease;
+  }
+  
+  .loginCard:hover {
+    transform: translateY(-5px);
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .header h1 {
+    margin: 0;
+    color: #333;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  
+  .header p {
+    margin-top: 8px;
+    color: #666;
+    font-size: 16px;
+  }
+  
+  .googleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .googleButton:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .googleButton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .googleIcon {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+  
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 25px 0;
+    color: #999;
+  }
+  
+  .divider::before,
+  .divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .divider span {
+    padding: 0 15px;
+    font-size: 14px;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .labelRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  
+  .inputGroup label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 6px;
+  }
+  
+  .forgotPassword {
+    font-size: 13px;
+    color: #4a6cf7;
+    text-decoration: none;
+  }
+  
+  .forgotPassword:hover {
+    text-decoration: underline;
+  }
+  
+  .inputGroup input {
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.2s ease;
+  }
+  
+  .inputGroup input:focus {
+    outline: none;
+    border-color: #4a6cf7;
+    box-shadow: 0 0 0 2px rgba(74, 108, 247, 0.1);
+  }
+  
+  .inputGroup input:disabled {
+    background-color: #f9f9f9;
+    cursor: not-allowed;
+  }
+  
+  .errorMessage {
+    background-color: #fff0f0;
+    color: #e53e3e;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    border-left: 3px solid #e53e3e;
+  }
+  
+  .submitButton {
+    background-color: #4a6cf7;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .submitButton:hover {
+    background-color: #3a5ce5;
+  }
+  
+  .submitButton:disabled {
+    background-color: #8da4f8;
+    cursor: not-allowed;
+  }
+  
+  .footer {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .footer a {
+    color: #4a6cf7;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 480px) {
+    .loginCard {
+      padding: 30px 20px;
+    }
+  
+    .header h1 {
+      font-size: 24px;
+    }
+  
+    .googleButton,
+    .submitButton {
+      padding: 12px;
+    }
+  }
+  
+  
