@@ -1,7 +1,11 @@
+// app/dashboard/page.tsx
+
+"use client";  // Add this to mark the file as a client component
+
 import { useEffect, useState } from 'react';
 import { auth } from '@/lib/firebaseConfig';  // Correct path
 import { signOut, onAuthStateChanged } from 'firebase/auth';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';  // Use next/navigation instead of next/router
 
 export default function Dashboard() {
   const [user, setUser] = useState<any>(null);

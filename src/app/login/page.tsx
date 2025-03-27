@@ -1,54 +1,49 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useState } from "react"
-import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth"
-import { auth, googleProvider } from "@/lib/firebaseConfig"
-import { useRouter } from "next/router"
-import styles from '../styles/login.module.css';
-
-// Remove this line
-// import { FcGoogle } from 'react-icons/fc';
-import Link from "next/link"
+import { useState } from "react";
+import { useRouter } from "next/navigation"; // ✅ Fixed import
+import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { auth, googleProvider } from "@/lib/firebaseConfig";
+import Link from "next/link";
+import styles from '../../styles/login.module.css';
 
 export default function Login() {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Google login handler
+  // ✅ Google login handler
   const handleGoogleLogin = async () => {
     try {
-      setIsLoading(true)
-      await signInWithPopup(auth, googleProvider)
-      router.push("/dashboard") // Redirect after login
+      setIsLoading(true);
+      await signInWithPopup(auth, googleProvider);
+      router.push("/dashboard"); // Redirect after login
     } catch (error) {
-      console.error("Google login failed:", error)
-      setError("Google login failed, please try again.")
+      console.error("Google login failed:", error);
+      setError("Google login failed, please try again.");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
-  // Email/password login handler
+  // ✅ Email/password login handler
   const handleEmailLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
 
     try {
-      await signInWithEmailAndPassword(auth, email, password)
-      router.push("/dashboard") // Redirect after login
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push("/dashboard"); // Redirect after login
     } catch (error) {
-      console.error("Login failed:", error)
-      setError("Invalid email or password. Please try again.")
+      console.error("Login failed:", error);
+      setError("Invalid email or password. Please try again.");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className={styles.container}>
@@ -58,7 +53,12 @@ export default function Login() {
           <p>Please sign in to continue</p>
         </div>
 
-        <button className={styles.googleButton} onClick={handleGoogleLogin} disabled={isLoading}>
+        <button
+          className={styles.googleButton}
+          onClick={handleGoogleLogin}
+          disabled={isLoading}
+          aria-label="Sign in with Google"
+        >
           <svg
             className={styles.googleIcon}
             xmlns="http://www.w3.org/2000/svg"
@@ -107,9 +107,9 @@ export default function Login() {
           <div className={styles.inputGroup}>
             <div className={styles.labelRow}>
               <label htmlFor="password">Password</label>
-              <a href="#" className={styles.forgotPassword}>
+              <Link href="/forgot-password" className={styles.forgotPassword}>
                 Forgot password?
-              </a>
+              </Link>
             </div>
             <input
               id="password"
@@ -122,9 +122,17 @@ export default function Login() {
             />
           </div>
 
-          {error && <div className={styles.errorMessage}>{error}</div>}
+          {error && (
+            <div className={styles.errorMessage} aria-live="polite">
+              {error}
+            </div>
+          )}
 
-          <button type="submit" className={styles.submitButton} disabled={isLoading}>
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={isLoading}
+          >
             {isLoading ? "Signing in..." : "Sign in with Email"}
           </button>
         </form>
@@ -134,6 +142,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

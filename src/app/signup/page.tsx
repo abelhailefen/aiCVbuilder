@@ -1,64 +1,77 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
-import { createUserWithEmailAndPassword } from "firebase/auth"
-import { auth } from "@/lib/firebaseConfig"
-import { useRouter } from "next/router"
+import { createUserWithEmailAndPassword, updateProfile, User } from "firebase/auth"
+import { auth, db, createUserInFirestore } from "@/lib/firebaseConfig"
+import { useRouter } from "next/navigation"
+import { doc, setDoc } from "firebase/firestore"
 import Link from "next/link"
-import styles from '../styles/signup.module.css'
+import styles from '../../styles/signup.module.css';
+
 export default function Signup() {
   const router = useRouter()
 
+  const [displayName, setDisplayName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
-  // Form validation
+  // Validate form inputs
   const validateForm = () => {
+    if (!displayName) {
+      setError("Please enter your name")
+      return false
+    }
     if (password !== confirmPassword) {
       setError("Passwords do not match")
       return false
     }
-
     if (password.length < 6) {
       setError("Password must be at least 6 characters")
       return false
     }
-
     return true
   }
 
-  // Email/password signup handler
+  // Sign up user and store details in Firestore
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    // Clear previous errors
     setError("")
-
-    // Validate form
-    if (!validateForm()) {
-      return
-    }
+    
+    if (!validateForm()) return
 
     setIsLoading(true)
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password)
+      // Create user in Firebase Authentication
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+      const user = userCredential.user
+
+      // Update user profile (display name)
+      await updateProfile(user, { displayName })
+
+      // Store user details in Firestore
+      const userRef = doc(db, "users", user.uid)
+      await setDoc(userRef, {
+        uid: user.uid,
+        displayName,
+        email: user.email,
+        photoURL: user.photoURL || "",
+        createdAt: new Date(),
+      })
+
       router.push("/dashboard") // Redirect after signup
     } catch (error: any) {
       console.error("Signup failed:", error)
 
-      // Handle specific Firebase auth errors
       if (error.code === "auth/email-already-in-use") {
         setError("This email is already registered. Please use a different email or sign in.")
       } else if (error.code === "auth/invalid-email") {
-        setError("Invalid email address format.")
+        setError("Invalid email format.")
       } else {
-        setError("Failed to create account. Please try again.")
+        setError("Failed to create an account. Please try again.")
       }
     } finally {
       setIsLoading(false)
@@ -74,6 +87,19 @@ export default function Signup() {
         </div>
 
         <form onSubmit={handleSignup} className={styles.form}>
+          <div className={styles.inputGroup}>
+            <label htmlFor="displayName">Full Name</label>
+            <input
+              id="displayName"
+              type="text"
+              placeholder="Your Full Name"
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              required
+              disabled={isLoading}
+            />
+          </div>
+
           <div className={styles.inputGroup}>
             <label htmlFor="email">Email</label>
             <input
@@ -127,5 +153,4 @@ export default function Signup() {
       </div>
     </div>
   )
-}
-
+} 
