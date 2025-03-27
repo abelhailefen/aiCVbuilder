@@ -1,0 +1,174 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .button {
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+  
+  .iconButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    color: #666;
+  }
+  
+  .card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .cardHeader {
+    margin-bottom: 16px;
+  }
+  
+  .cardTitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+  }
+  
+  .cardDescription {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+  }
+  
+  .formGroup {
+    margin-bottom: 16px;
+  }
+  
+  .label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  .textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+    min-height: 120px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  .flexRow {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .skillsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  
+  .skillTag {
+    background-color: #f0f0f0;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .separator {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 12px 0;
+    width: 100%;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  
+  .sectionItem {
+    margin-bottom: 16px;
+  }
+  
+  .sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .sectionTitle {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .sectionContent {
+    font-size: 14px;
+    color: #444;
+    white-space: pre-wrap;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+  }
+  
+  .inputFlex {
+    flex: 1;
+  }
+  
+  
