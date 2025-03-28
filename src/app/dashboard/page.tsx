@@ -264,6 +264,25 @@ export default function Dashboard() {
           ))}
         </div>
       )}
+      {/* Professional Summary */}
+<div className={styles.card}>
+  <div className={styles.cardHeader}>
+    <h2 className={styles.cardTitle}>Professional Summary</h2>
+    <p className={styles.cardDescription}>Write a compelling summary of your professional background</p>
+  </div>
+  <div className={styles.formGroup}>
+    <textarea
+      className={styles.textarea}
+      placeholder="Experienced professional with a track record of..."
+      value={summary}
+      onChange={(e) => setSummary(e.target.value)}
+      readOnly
+    />
+  </div>
+  <button className={styles.button} onClick={handleGenerateSummary} disabled={loading}>
+    {loading ? "Generating..." : "Generate Summary"}
+  </button>
+</div>
     </div>
   )
 }
