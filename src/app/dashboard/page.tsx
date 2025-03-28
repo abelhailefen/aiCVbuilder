@@ -38,56 +38,48 @@ export default function Dashboard() {
     }
   }
 
-  const handleRemoveSection = (index) => {
-    const updatedSections = [...sections]
-    updatedSections.splice(index, 1)
-    setSections(updatedSections)
-  }
- const handleGenerateSummary = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch('/api/generate-summary', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: personalInfo.name, skills }),
-      });
-      const data = await response.json();
-      setSummary(data.summary);
-    } catch (error) {
-      console.error('Error generating summary:', error);
-    }
-    setLoading(false);
-  };
-  const generateSummary = async () => {
+  const handleGenerateResume = async () => {
     if (!personalInfo.name || skills.length === 0) {
-      alert('Please enter your name and at least one skill.');
+      alert("Please enter your name and at least one skill.");
       return;
     }
   
+    setLoading(true);
     try {
-      const response = await fetch('/api/generate-summary', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: personalInfo.name, skills }),
+      const response = await fetch("/api/generate-resume", {  // Change API endpoint
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: personalInfo.name,
+          email: personalInfo.email,
+          phone: personalInfo.phone,
+          address: personalInfo.address,
+          skills,
+          sections
+        }),
       });
   
       const data = await response.json();
   
       if (response.ok) {
-        setSummary(data.summary);
+        setSummary(data.resume); // Store generated resume
       } else {
-        alert(data.error || 'Failed to generate summary.');
+        alert(data.error || "Failed to generate resume.");
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred while generating the summary.');
+      console.error("Error:", error);
+      alert("An error occurred while generating the resume.");
     }
-  }; 
+    setLoading(false);
+  };
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.heading}>Resume Builder</h1>
-        <button onClick={generateSummary} className={styles.button} >Save Resume</button>
+        <button className={styles.button} onClick={handleGenerateResume} disabled={loading}>
+  {loading ? "Generating..." : "Generate Resume"}
+</button>
+
       </div>
 
       {/* Personal Information */}
@@ -264,25 +256,19 @@ export default function Dashboard() {
           ))}
         </div>
       )}
-      {/* Professional Summary */}
-<div className={styles.card}>
-  <div className={styles.cardHeader}>
-    <h2 className={styles.cardTitle}>Professional Summary</h2>
-    <p className={styles.cardDescription}>Write a compelling summary of your professional background</p>
+      {/* Generated Resume Output */}
+{summary && (
+  <div className={styles.card}>
+    <div className={styles.cardHeader}>
+      <h2 className={styles.cardTitle}>Generated Resume</h2>
+    </div>
+    <div className={styles.resumeOutput}>
+      <pre className={styles.pre}>{summary}</pre>
+    </div>
   </div>
-  <div className={styles.formGroup}>
-    <textarea
-      className={styles.textarea}
-      placeholder="Experienced professional with a track record of..."
-      value={summary}
-      onChange={(e) => setSummary(e.target.value)}
-      readOnly
-    />
-  </div>
-  <button className={styles.button} onClick={handleGenerateSummary} disabled={loading}>
-    {loading ? "Generating..." : "Generate Summary"}
-  </button>
-</div>
+)}
+
+
     </div>
   )
 }

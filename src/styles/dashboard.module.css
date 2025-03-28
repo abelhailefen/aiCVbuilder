@@ -171,4 +171,17 @@
     flex: 1;
   }
   
+  .resumeOutput {
+    background-color: #f8f9fa;
+    padding: 16px;
+    border-radius: 8px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
   
+  .pre {
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+   

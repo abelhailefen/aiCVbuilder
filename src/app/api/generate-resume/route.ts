@@ -3,36 +3,46 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { name, skills } = await req.json();
+    const { name, email, phone, address, skills, sections } = await req.json();
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
       return NextResponse.json(
-        { error: "Missing Gemini API Key" }, 
+        { error: "Missing Gemini API Key" },
         { status: 500 }
       );
     }
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    
-    // Current working models (as of July 2024)
+
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",  // or "gemini-1.5-pro"
+      model: "gemini-1.5-flash", // or "gemini-1.5-pro"
     });
 
-    const prompt = `Write a 3-4 sentence professional summary for ${name}, highlighting their expertise in ${skills.join(", ")}.`;
+    // 🔹 New structured prompt for a full resume
+    const prompt = `
+      Generate a full professional resume for:
+      - Name: ${name}
+      - Email: ${email}
+      - Phone: ${phone}
+      - Address: ${address}
+      - Skills: ${skills.join(", ")}
+      
+      Additional Sections:
+      ${sections.map((s: { title: string; content: string }) => `- ${s.title}: ${s.content}`).join("\n")}
 
-    // Simplified modern API call
+      Format it professionally using markdown.
+    `;
+
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    
-    return NextResponse.json({ summary: text });
+    console.log("Generated Resume:", text);
+    return NextResponse.json({ resume: text });
 
   } catch (error) {
     console.error("Generation Error:", error);
-    
-    // More detailed error response
+
     return NextResponse.json(
       {
         error: "Generation Failed",
