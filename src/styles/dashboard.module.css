@@ -184,4 +184,12 @@
     font-size: 14px;
     line-height: 1.5;
   }
-   
+  .outputScrollWrapper {
+    overflow-x: auto;
+    width: 100%;
+  }
+  
+  .outputScrollContent {
+    min-width: 800px; /* or whatever fits your resume format */
+  }
+  

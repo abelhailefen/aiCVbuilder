@@ -34,6 +34,7 @@ export default function Signup() {
     }
     return true
   }
+  
 
   // Sign up user and store details in Firestore
   const handleSignup = async (e: React.FormEvent) => {

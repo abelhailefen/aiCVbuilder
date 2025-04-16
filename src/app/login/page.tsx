@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // ✅ Fixed import
+import { useRouter } from "next/navigation"; // 
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, googleProvider } from "@/lib/firebaseConfig";
 import Link from "next/link";
@@ -15,7 +15,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // ✅ Google login handler
+  // Google login handler
   const handleGoogleLogin = async () => {
     try {
       setIsLoading(true);

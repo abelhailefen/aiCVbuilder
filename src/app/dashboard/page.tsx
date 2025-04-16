@@ -257,16 +257,19 @@ export default function Dashboard() {
         </div>
       )}
       {/* Generated Resume Output */}
-{summary && (
+      {summary && (
   <div className={styles.card}>
     <div className={styles.cardHeader}>
       <h2 className={styles.cardTitle}>Generated Resume</h2>
     </div>
-    <div className={styles.resumeOutput}>
-      <pre className={styles.pre}>{summary}</pre>
+    <div className={`${styles.resumeOutput} ${styles.outputScrollWrapper}`}>
+      <div className={styles.outputScrollContent}>
+        <pre className={styles.pre}>{summary}</pre>
+      </div>
     </div>
   </div>
 )}
+
 
 
     </div>
